@@ -36,7 +36,7 @@ body{
 .overlay-div{
     position: absolute;
     top: 20%;
-    left: 60%;
+    left: 50%;
     z-index: 2;
     width: 50%;
 }
@@ -62,9 +62,70 @@ body{
     object-fit: cover;
     height: 80%;
 }
+
+
+.meal-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: lightgray;
+  }
+  
+  .meal-info {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .meal-image img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  .meal-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .meal-name {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .meal-instructions {
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  .ingredient-list {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    padding: 0;
+  }
+  
+  .add-to-favorites {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .add-to-favorites:hover {
+    background-color: #45a049;
+  }
+  
+
+
+
+
 footer{
     color: white;
     background-color: black;
     padding: 1%;
+}
+.bg-gray{
+    background-color: gray;
 }
 

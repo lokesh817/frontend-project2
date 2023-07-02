@@ -15,15 +15,26 @@
                 <li id="logo"><img src="./Images/logo.png" height="70px" width="70px" alt="logo"></li>
                 <li class="page-links">
                     <a href="#">Favourite</a>
-                    <a href="#">Home</a> 
+                    <a href="home.html">Home</a> 
                 </li>
             </ul>
         </div>
     </nav>
-    <main class="main">
-        <img id="wallpaper" src="./Images/Food-wallpaper.jpeg" width="100%" alt="Food-wallpaper">
-        <div class="overlay-div meals-details">
-            
+    <main class="main bg-gray meal-container">
+        <!-- <img id="wallpaper" src="./Images/Food-wallpaper.jpeg" width="100%" alt="Food-wallpaper"> -->
+        <div class="meal-info">
+            <div class="meal-image">
+                <h2 id="meal-name" class="meal-name"></h2>
+                <img id="meal-image" src="" alt="Meal Image">
+                
+            </div>
+            <div class="meal-details">
+                <h4> Instructions</h4>
+                <p id="meal-instructions" class="meal-instructions"></p>
+                <h4> Ingredients</h4>
+                <p id="meal-ingredients" class="ingredient-list"></p>
+                <button id="add-to-favorites" class="add-to-favorites">Add to Favorites</button>
+            </div>
         </div>
     </main>
     <footer>

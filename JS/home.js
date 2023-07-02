@@ -1,4 +1,4 @@
-var a=10;
+let data1=false;
 let searchBox=document.getElementById('search-box');
 let searchResultListLink=[];
 searchBox.addEventListener('input',function(){
@@ -39,18 +39,9 @@ searchBox.addEventListener('input',function(){
         searchResultListLink.forEach((Link)=>{
         Link.addEventListener('click',function(e){
           e.preventDefault();
-          console.log('list value:',Link.href);
           const strVal=Link.href.split('/');
           const searchTerm=strVal[strVal.length-1];
-          fetch('https://www.themealdb.com/api/json/v1/1/search.php?s='+encodeURIComponent(searchTerm))
-          .then(response => response.json())
-          .then(data=>{
-            window.open('FoodDetail.html','_blank')
-            console.log(data);
-          })
-          .catch(error=>{
-            console.log(error);
-          })
+          window.open(`FoodDetail.html?abc=${searchTerm}`,'_blank')
         })
       })
       }
@@ -61,3 +52,7 @@ searchBox.addEventListener('input',function(){
     });
     // console.log(searchResultList);
 });
+let details=document.getElementById('detail');
+if(data1!=false){
+  details.innerText=JSON.stringfy(data1);
+}
