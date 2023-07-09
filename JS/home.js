@@ -1,58 +1,73 @@
-let data1=false;
-let searchBox=document.getElementById('search-box');
-let searchResultListLink=[];
-searchBox.addEventListener('input',function(){
-    let search_field= document.getElementById('search-box');
-    let searchTerm=search_field.value;
-    if(searchTerm==' ' || searchTerm==''){
-      const searchList = document.getElementById('search-results');
-      searchList.innerHTML='';
-      return;
-    }
-    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s='+encodeURIComponent(searchTerm))
+
+// Declare and initialize variables
+let data1 = false; // Flag variable
+let searchBox = document.getElementById('search-box'); // Get search box element
+let searchResultListLink = []; // Array to store search result links
+let favMealList = []; // Array to store favorite meals
+
+// Convert favMealList array to a string and save it to localStorage
+localStorage.setItem('myFavList', JSON.stringify(favMealList));
+
+// Add input event listener to search box
+searchBox.addEventListener('input', function() {
+  let search_field = document.getElementById('search-box'); // Get search box element
+  let searchTerm = search_field.value; // Get the entered search term
+
+  // Clear search results if search term is empty or contains only spaces
+  if (searchTerm == ' ' || searchTerm == '') {
+    const searchList = document.getElementById('search-results'); // Get search results list element
+    searchList.innerHTML = ''; // Clear the search results list
+    return;
+  }
+
+  // Fetch search results from the API based on the search term
+  fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=' + encodeURIComponent(searchTerm))
     .then(response => response.json())
     .then(data => {
-      const ulElement = document.getElementById('search-results'); // Replace 'myUl' with the ID of your <ul> element
-      ulElement.innerHTML = ''; // Clear previous results
-      // searchResultList=[];//clear previous results
-      data.meals.forEach(meal => {
-        const liElement = document.createElement('li');
-        const aElement = document.createElement('a');
-        const inputElement = document.createElement('input');
+      const ulElement = document.getElementById('search-results'); // Get search results list element
+      ulElement.innerHTML = ''; // Clear previous search results
 
-        aElement.href = meal.strMeal; // Replace 'meal.strMeal' with the property that contains the URL for each search result
-        // aElement.textContent = meal.strMeal; // Replace 'meal.strMeal' with the property that contains the text for each search result
+      // Iterate over each meal in the search results
+      if (data.meals != null) {
+        data.meals.forEach(meal => {
+          // Create list item, anchor, and input elements for each search result
+          const liElement = document.createElement('li');
+          const aElement = document.createElement('a');
+          const inputElement = document.createElement('input');
 
-        inputElement.type = 'text';
-        inputElement.value = meal.strMeal; // Replace 'meal.strMeal' with the property that contains the text for each search result
-        liElement.classList.add('list-item');
-        aElement.appendChild(inputElement);
-        liElement.appendChild(aElement);
-        ulElement.appendChild(liElement);
-        
-      });
+          aElement.href = meal.strMeal; // Set the URL for each search result
+          inputElement.type = 'text';
+          inputElement.value = meal.strMeal; // Set the text for each search result
+
+          liElement.classList.add('list-item'); // Add class to list item
+          aElement.appendChild(inputElement); // Append input element to anchor
+          liElement.appendChild(aElement); // Append anchor to list item
+          ulElement.appendChild(liElement); // Append list item to search results list
+        });
+      }
     })
-    .then(()=>{
-      searchResultListLink=document.querySelectorAll('#search-results li a');
-      if(searchResultListLink!=null){
+    .then(() => {
+      // Add click event listener to each search result link
+      searchResultListLink = document.querySelectorAll('#search-results li a');
+      if (searchResultListLink != null) {
         console.log(searchResultListLink);
-        searchResultListLink.forEach((Link)=>{
-        Link.addEventListener('click',function(e){
-          e.preventDefault();
-          const strVal=Link.href.split('/');
-          const searchTerm=strVal[strVal.length-1];
-          window.open(`FoodDetail.html?abc=${searchTerm}`,'_blank')
-        })
-      })
+        searchResultListLink.forEach((Link) => {
+          Link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const strVal = Link.href.split('/');
+            const searchTerm = strVal[strVal.length - 1];
+            window.open(`FoodDetail.html?abc=${searchTerm}`);
+          });
+        });
       }
     })
     .catch(error => {
-      // Handle any errors that occurred during the API cal
+      // Handle any errors that occurred during the API call
       console.log(error);
     });
-    // console.log(searchResultList);
 });
-let details=document.getElementById('detail');
-if(data1!=false){
-  details.innerText=JSON.stringfy(data1);
+
+let details = document.getElementById('detail'); // Get detail element
+if (data1 != false) {
+  details.innerText = JSON.stringify(data1); // Display data1 as a string in the detail element
 }
